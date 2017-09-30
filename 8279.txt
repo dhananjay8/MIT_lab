@@ -1,0 +1,55 @@
+
+	MOV CL,08						4444	:MOV DX,FFFF
+	MOV AL,00	,10 				L		:DEC DX
+	OUT 31,AL								CMP DX,00
+	MOV BX,1000								JNZ L
+UP:	MOV AL,[BX]								RET
+	CALL 4444
+	OUT 30,AL
+	INC BX
+	DEC CL
+	JNZ S
+	INT 3
+	
+	----------------------------
+	ROLLING
+	
+S:	MOV CL,10
+	MOV AL,18
+	OUT 31,AL
+	MOV BX,1000
+UP:	MOV AL,[BX]
+	CALL 4444
+	OUT 30,AL
+	INC BX
+	DEC CL
+	JNZ UP
+	
+	MOV AL,D3
+	OUT 31,AL
+	CALL 4444
+	JMP S
+	INT 3
+	--------------------------------
+	
+	FLASHING
+	
+S:	MOV CL,10
+	MOV AL,18
+	OUT 31,AL
+	MOV BX,1000
+UP:	MOV AL,[BX]
+	CALL 4444
+	OUT 30,AL
+	INC BX
+	DEC CL
+	JNZ UP
+	
+P:	MOV AL,A3
+	OUT 31,AL
+	CALL 4444
+	MOV AL,A0
+	OUT 31,AL
+	CALL 4444
+	JMP P
+	INT 3
